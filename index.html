@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de CV Simple et Beau</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS pour un design beau et professionnel */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 600px;
+        }
+        .form-section {
+            flex: 1;
+            padding: 30px;
+            background: #f8f9fa;
+            min-width: 300px;
+        }
+        .cv-preview {
+            flex: 1;
+            padding: 30px;
+            background: white;
+            border-left: 1px solid #ddd;
+            display: none; /* Caché au début */
+        }
+        .cv-preview.show {
+            display: block;
+        }
+        h2 {
+            color: #4facfe;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .experience-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 5px;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background: #ff6b6b;
+        }
+        .cv-content {
+            font-size: 1.1em;
+        }
+        .cv-section {
+            margin-bottom: 25px;
+        }
+        .cv-section h3 {
+            color: #4facfe;
+            border-bottom: 2px solid #4facfe;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .cv-item {
+            margin-bottom: 10px;
+        }
+        .cv-item strong {
+            color: #333;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            .cv-preview {
+                border-left: none;
+                border-top: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Générateur de CV Simple</h1>
+            <p>Créez votre CV professionnel en quelques clics. Remplissez le formulaire et générez un beau CV !</p>
+        </header>
+
+        <div class="main-content">
+            <section class="form-section">
+                <h2>📝 Remplissez vos informations</h2>
+                
+                <!-- Infos personnelles -->
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" placeholder="Votre nom">
+
+                <label for="prenom">Prénom :</label>
+                <input type="text" id="prenom" placeholder="Votre prénom">
+
+                <label for="email">Email :</label>
+                <input type="email" id="email" placeholder="votre@email.com">
+
+                <label for="telephone">Téléphone :</label>
+                <input type="tel" id="telephone" placeholder="06 XX XX XX XX">
+
+                <!-- Expériences -->
+                <h3>Expériences professionnelles</h3>
+                <div id="experiences">
+                    <div class="experience-item">
+                        <label for="post1">Poste :</label>
+                        <input type="text" id="post1" placeholder="Ex: Développeur Web">
+
+                        <label for="entreprise1">Entreprise :</label>
+                        <input type="text" id="entreprise1" placeholder="Ex: Google">
+
+                        <label for="dates1">Dates :</label>
+                        <input type="text" id="dates1" placeholder="Ex: 2020 - 2023">
+
+                        <label for="description1">Description :</label>
+                        <textarea id="description1" placeholder="Vos responsabilités..."></textarea>
+                    </div>
+                </div>
+                <button class="btn" onclick="addExperience()">➕ Ajouter une expérience</button>
+
+                <!-- Éducation -->
+                <h3>Éducation</h3>
+                <label for="diplome">Diplôme :</label>
+                <input type="text" id="diplome" placeholder="Ex: Master en Informatique">
+
+                <label for="ecole">École/Université :</label>
+                <input type="text" id="ecole" placeholder="Ex: Université de Paris">
+
+                <label for="datesEdu">Dates :</label>
+                <input type="text" id="datesEdu" placeholder="Ex: 2018 - 2020">
+
+                <!-- Compétences -->
+                <h3>Compétences</h3>
+                <label for="competences">Liste de compétences (séparées par des virgules) :</label>
+                <textarea id="competences" placeholder="Ex: HTML, CSS, JavaScript, Python"></textarea>
+
+                <button class="btn" onclick="generateCV()">✨ Générer mon CV</button>
+                <button class="btn" onclick="resetForm()">🔄 Réinitialiser</button>
+            </section>
+
+            <section class="cv-preview" id="cvPreview">
+                <h2>Votre CV Généré</h2>
+                <div class="cv-content" id="cvContent">
+                    <p style="text-align: center; font-style: italic; color: #888;">Remplissez le formulaire pour voir votre CV ici.</p>
+                </div>
+                <p style="text-align: center; margin-top: 20px;">
+                    <button class="btn" onclick="window.print()">🖨️ Imprimer / Télécharger en PDF</button>
+                </p>
+            </section>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 Générateur de CV. Créé avec ❤️ par un assistant IA. Personnalisez-le à votre guise !</p>
+        </footer>
+    </div>
+
+    <script>
+        let experienceCount = 1;
+
+        function addExperience() {
+            experienceCount++;
+            const experiencesDiv = document.getElementById('experiences');
+            const newItem = document.createElement('div');
+            newItem.className = 'experience-item';
+            newItem.innerHTML = `
+                <label for="post${experienceCount}">Poste :</label>
+                <input type="text" id="post${experienceCount}" placeholder="Ex: Nouveau poste">
+
+                <label for="entreprise${experienceCount}">Entreprise :</label>
+                <input type="text" id="entreprise${experienceCount}" placeholder="Ex: Nouvelle entreprise">
+
+                <label for="dates${experienceCount}">Dates :</label>
+                <input type="text" id="dates${experienceCount}" placeholder="Ex: 2023 - Présent">
+
+                <label for="description${experienceCount}">Description :</label>
+                <textarea id="description${experienceCount}" placeholder="Vos responsabilités..."></textarea>
+
+                <button class="btn btn-danger" onclick="this.parentElement.remove()">❌ Supprimer</button>
+            `;
+            experiencesDiv.appendChild(newItem);
+        }
+
+        function generateCV() {
+            // Récupérer les données
+            const nom = document.getElementById('nom').value;
+            const prenom = document.getElementById('prenom').value;
+            const email = document.getElementById('email').value;
+            const telephone = document.getElementById('telephone').value;
+            const diplome = document.getElementById('diplome').value;
+            const ecole = document.getElementById('ecole').value;
+            const datesEdu = document.getElementById('datesEdu').value;
+            const competencesText = document.getElementById('competences').value;
+            const competences = competencesText.split(',').map(c => c.trim()).filter(c => c);
+
+            // Générer les expériences
+            let experiencesHTML = '';
+            for (let i = 1; i <= experienceCount; i++) {
+                const post = document.getElementById(`post${i}`)?.value || '';
+                const entreprise = document.getElementById(`entreprise${i}`)?.value || '';
+                const dates = document.getElementById(`dates${i}`)?.value || '';
+                const description = document.getElementById(`description${i}`)?.value || '';
+                if (post || entreprise) {
+                    experiencesHTML += `
+                        <div class="cv-item">
+                            <strong>${post} chez ${entreprise}</strong> (${dates})<br>
+                            ${description}
+                        </div>
+                    `;
+                }
+            }
+
+            // Template du CV
+            const cvHTML = `
+                <div class="cv-section">
+                    <h3>Informations Personnelles</h3>
+                    <p><strong>${prenom} ${nom}</strong></p>
+                    <p>Email: ${email} | Téléphone: ${telephone}</p>
+                </div>
+
+                <div class="cv-section">
+                    <h3>Expériences Professionnelles</h3>
+                    ${experiencesHTML || '<p>Aucune expérience saisie.</p>'}
+                </div>
+
+                <div class="cv-section">
+                    <h3>Éducation</h3>
+                    ${diplome ? `
+                        <div class="cv-item">
+                            <strong>${diplome}</strong> - ${ecole} (${datesEdu})
+                        </div>
+                    ` : '<p>Aucune éducation saisie.</p>'}
+                </div>
+
+                <div class="cv-section">
+                    <h3>Compétences</h3>
+                    <ul>
+                        ${competences.map(comp => `<li>${comp}</li>`).join('') || '<li>Aucune compétence saisie.</li>'}
+                    </ul>
+                </div>
+            `;
+
+            document.getElementById('cvContent').innerHTML = cvHTML;
+            document.getElementById('cvPreview').classList.add('show');
+            document.getElementById('cvPreview').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            document.querySelector('.form-section').querySelectorAll('input, textarea').forEach(input => input.value = '');
+            document.getElementById('experiences').innerHTML = `
+                <div class="experience-item">
+                    <label for="post1">Poste :</label>
+                    <input type="text" id="post1" placeholder="Ex: Développeur Web">
+
+                    <label for="entreprise1">Entreprise :</label>
+                    <input type="text" id="entreprise1" placeholder="Ex: Google">
+
+                    <label for="dates1">Dates :</label>
+                    <input type="text" id="dates1" placeholder="Ex: 2020 - 2023">
+
+                    <label for="description1">Description :</label>
+                    <textarea id="description1" placeholder="Vos responsabilités..."></textarea>
+                </div>
+            `;
+            experienceCount = 1;
+            document.getElementById('cvPreview').classList.remove('show');
+            document.getElementById('cvContent').innerHTML = '<p style="text-align: center; font-style: italic; color: #888;">Remplissez le formulaire pour voir votre CV ici.</p>';
+        }
+    </script>
+</body>
+</html>
